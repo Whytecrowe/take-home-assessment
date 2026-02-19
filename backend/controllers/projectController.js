@@ -5,7 +5,14 @@ const { getProjects, getProjectById, addProject } = require('../config/store');
  */
 function listProjects(req, res, next) {
   try {
-    const projects = getProjects();
+    const { status } = req.query;
+    let projects = getProjects();
+
+    if (status) {
+      const statParam = status.toLowerCase();
+      projects = projects.filter((p) => p.status.toString().toLowerCase() === statParam);
+    }
+
     res.json({ success: true, data: projects, count: projects.length });
   } catch (err) {
     next(err);
