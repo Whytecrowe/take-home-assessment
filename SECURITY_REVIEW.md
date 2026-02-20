@@ -55,6 +55,9 @@ ___
 **Description:**
 The `approve()` function does not enforce a zero-address check on the `spender` address param, allowing approvals to the zero-address,
 which could lead to unintended consequences if the zero-address is used. This could also lead to problems with tooling and some applications.
+
+**Recommendation:**
+Require `spender` in `approve()` to be a non-zero address.
 ___
 
 #### 5. Contract not implementing standard ERC20 interface.
