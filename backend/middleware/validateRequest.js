@@ -30,7 +30,17 @@ function validateProjectBody(req, res, next) {
   next();
 }
 
+function isValidEthAddress(address) {
+  let valid = typeof address === 'string';
+
+  // checksum enforcement seems unnecessary here,
+  // so I decided to not install another package just for a single function call
+  // if we wanted it, we could use `ethers.isAddress(addr)` or `viem.isAddress(addrs, {strict: true})`
+  return valid && /^0x[0-9a-fA-F]{40}$/.test(address);
+}
+
 module.exports = {
   validateProjectBody,
+  isValidEthAddress,
   VALID_STATUSES,
 };
